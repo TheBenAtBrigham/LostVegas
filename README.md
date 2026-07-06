@@ -1,2 +1,2 @@
 # LostVegas
-The game you must escape the casino!
+The game where you must escape the casino!
