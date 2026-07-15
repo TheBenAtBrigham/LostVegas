@@ -42,6 +42,7 @@
     {"id":{"name":"player_anim_script","path":"scripts/player_anim_script/player_anim_script.yy",},},
     {"id":{"name":"casino","path":"rooms/casino/casino.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
+    {"id":{"name":"obj_casino_room","path":"objects/obj_casino_room/obj_casino_room.yy",},},
   ],
   "RoomOrderNodes": [
     {"roomId":{"name":"casino","path":"rooms/casino/casino.yy",},},

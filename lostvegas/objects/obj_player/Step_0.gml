@@ -12,11 +12,27 @@ input_direction = point_direction(0, 0, _right_key - _left_key, _down_key-_up_ke
 //To prevent conflicting input
 input_magnitude = (_right_key - _left_key != 0) || (_down_key - _up_key != 0);
 //Our movement
-h_speed = lengthdir_x(input_magnitude * walking_speed, input_direction)
-v_speed = lengthdir_y(input_magnitude * walking_speed, input_direction)
+h_speed = lengthdir_x(input_magnitude * walking_speed, input_direction);
+v_speed = lengthdir_y(input_magnitude * walking_speed, input_direction);
 
-x += h_speed;
-y += v_speed;
+// Resolve each axis separately so the player slides naturally along furniture.
+var _steps_x = ceil(abs(h_speed));
+if (_steps_x > 0) {
+    var _move_x = h_speed / _steps_x;
+    repeat (_steps_x) {
+        if (!position_is_blocked(x + _move_x, y)) x += _move_x; else break;
+    }
+}
+
+var _steps_y = ceil(abs(v_speed));
+if (_steps_y > 0) {
+    var _move_y = v_speed / _steps_y;
+    repeat (_steps_y) {
+        if (!position_is_blocked(x, y + _move_y)) y += _move_y; else break;
+    }
+}
+
+is_moving = (input_magnitude != 0);
 
 // update sprite index
 var _old_sprite = sprite_index;
