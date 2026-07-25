@@ -7,7 +7,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "Slot Machine",
-    "path": "folders/Objects/Slot Machine.yy",
+    "path": "folders/Objects/Minigames/Slot Machine.yy",
   },
   "parentObjectId": {
     "name": "obj_slot_parent",

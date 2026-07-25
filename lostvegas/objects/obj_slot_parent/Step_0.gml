@@ -5,6 +5,9 @@ if (rolling = true){
 	y1=y1 mod sprite_height
 }
 
+if (obj_minigame_manager.rigged = true){
+	sprite_index = spr_roll_rigged;
+}
 
 
 
