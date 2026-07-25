@@ -14,6 +14,15 @@ draw_set_colour(c_white);
 draw_text(34, 48, objective_text);
 
 if (dialogue_active && array_length(dialogue_lines) > 0) {
+    // Some conversations use one speaker for several consecutive lines.
+    // Clamp both lookups so the final supplied speaker is reused safely.
+    var _line_index = clamp(dialogue_index, 0, array_length(dialogue_lines) - 1);
+    var _speaker = "";
+    if (array_length(dialogue_speakers) > 0) {
+        var _speaker_index = clamp(_line_index, 0, array_length(dialogue_speakers) - 1);
+        _speaker = dialogue_speakers[_speaker_index];
+    }
+
     var _left = 54;
     var _right = _gw - 54;
     var _top = _gh - 188;
@@ -25,9 +34,9 @@ if (dialogue_active && array_length(dialogue_lines) > 0) {
     draw_set_alpha(1);
     draw_set_colour(make_colour_rgb(220, 171, 64));
     draw_rectangle(_left, _top, _right, _bottom, true);
-    draw_text(_left + 24, _top + 18, dialogue_speakers[dialogue_index]);
+    draw_text(_left + 24, _top + 18, _speaker);
     draw_set_colour(c_white);
-    draw_text_ext(_left + 24, _top + 50, dialogue_lines[dialogue_index], 8, _right - _left - 48);
+    draw_text_ext(_left + 24, _top + 50, dialogue_lines[_line_index], 8, _right - _left - 48);
     draw_set_colour(make_colour_rgb(180, 166, 190));
     draw_text(_right - 245, _bottom - 26, "SPACE / E / ENTER  Continue");
 }
