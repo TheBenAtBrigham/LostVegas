@@ -9,6 +9,16 @@ var _down_key   = keyboard_check(vk_down);
 var _action_key = keyboard_check_pressed(vk_space);
 var _select_key = keyboard_check_pressed(vk_shift);
 
+// Story dialogue owns the input until the current line is dismissed.
+var _story_locked = instance_exists(obj_game_manager) && obj_game_manager.dialogue_active;
+if (_story_locked) {
+    _left_key = false;
+    _right_key = false;
+    _up_key = false;
+    _down_key = false;
+    _action_key = false;
+}
+
 input_direction = point_direction(0, 0, _right_key - _left_key, _down_key - _up_key);
 input_magnitude = (_right_key - _left_key != 0) || (_down_key - _up_key != 0);
 
