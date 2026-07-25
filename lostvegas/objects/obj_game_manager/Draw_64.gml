@@ -2,16 +2,33 @@
 var _gw = display_get_gui_width();
 var _gh = display_get_gui_height();
 
+// Mini-game rooms need their own presentation and controls.
+if (room == rm_slots) {
+    draw_set_alpha(0.92);
+    draw_set_colour(make_colour_rgb(13, 9, 21));
+    draw_rectangle(18, 18, min(_gw - 18, 760), 94, false);
+    draw_set_alpha(1);
+    draw_set_colour(make_colour_rgb(220, 171, 64));
+    draw_rectangle(18, 18, min(_gw - 18, 760), 94, true);
+    draw_text(34, 28, "GOLDEN ACE SLOTS");
+    draw_set_colour(c_white);
+    draw_text(34, 50, "SPACE: spin reels     ENTER: cash out and return");
+    draw_set_colour(make_colour_rgb(190, 174, 198));
+    draw_text(34, 70, "One completed visit is enough to advance the escape lead.");
+}
+
 // Objective ribbon.
-draw_set_alpha(0.88);
-draw_set_colour(make_colour_rgb(13, 9, 21));
-draw_rectangle(18, 18, min(_gw - 18, 690), 72, false);
-draw_set_alpha(1);
-draw_set_colour(make_colour_rgb(220, 171, 64));
-draw_rectangle(18, 18, min(_gw - 18, 690), 72, true);
-draw_text(34, 28, "ESCAPE LEAD");
-draw_set_colour(c_white);
-draw_text(34, 48, objective_text);
+if (room == casino) {
+    draw_set_alpha(0.88);
+    draw_set_colour(make_colour_rgb(13, 9, 21));
+    draw_rectangle(18, 18, min(_gw - 18, 690), 72, false);
+    draw_set_alpha(1);
+    draw_set_colour(make_colour_rgb(220, 171, 64));
+    draw_rectangle(18, 18, min(_gw - 18, 690), 72, true);
+    draw_text(34, 28, "ESCAPE LEAD");
+    draw_set_colour(c_white);
+    draw_text(34, 48, objective_text);
+}
 
 if (dialogue_active && array_length(dialogue_lines) > 0) {
     // Some conversations use one speaker for several consecutive lines.
