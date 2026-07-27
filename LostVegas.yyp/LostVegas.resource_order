@@ -18,8 +18,10 @@
   ],
   "ResourceOrderSettings":[
     {"name":"obj_casino_room","order":1,"path":"objects/obj_casino_room/obj_casino_room.yy",},
+    {"name":"obj_slotmachine","order":3,"path":"objects/obj_slotmachine/obj_slotmachine.yy",},
     {"name":"obj_wall","order":2,"path":"objects/obj_wall/obj_wall.yy",},
     {"name":"MACROS","order":1,"path":"scripts/MACROS/MACROS.yy",},
+    {"name":"story_state","order":2,"path":"scripts/story_state/story_state.yy",},
     {"name":"spr_canvas","order":2,"path":"sprites/spr_canvas/spr_canvas.yy",},
     {"name":"spr_playceholder_walk","order":1,"path":"sprites/spr_playceholder_walk/spr_playceholder_walk.yy",},
     {"name":"spr_player_shadow","order":4,"path":"sprites/spr_player_shadow/spr_player_shadow.yy",},
