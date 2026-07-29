@@ -1,5 +1,6 @@
 /// Enter a playable casino game without allowing dialogue input to leak through.
-if (instance_exists(obj_game_manager) && obj_game_manager.dialogue_active) exit;
+if (instance_exists(obj_game_manager)
+    && (obj_game_manager.dialogue_active || obj_game_manager.inventory_open)) exit;
 
 if (keyboard_check_pressed(vk_space) || keyboard_check_pressed(ord("E"))) {
 	if (state == MINIGAME.SLOTS) {
