@@ -394,6 +394,10 @@ draw_set_colour(_c_gold_hi);
 draw_text(269, 30, "THE GOLDEN ACE");
 
 // ---------- Locked-exit warning ----------
+/// FILE: obj_casino_room / Draw event — REPLACE ONLY the locked-exit block
+/// (Same trigger condition as before — obj_player near the top exit —
+/// just using the new story_state_name() helper for consistency.)
+
 if (instance_exists(obj_player) && obj_player.y < 62) {
     draw_set_alpha(0.85);
     draw_set_colour(make_colour_rgb(12, 8, 18));
@@ -401,9 +405,16 @@ if (instance_exists(obj_player) && obj_player.y < 62) {
     draw_set_alpha(1);
     draw_set_colour(_c_gold);
     draw_rectangle(232, 68, 408, 93, true);
-    draw_set_colour(make_colour_rgb(255, 218, 104));
-    draw_text(248, 75, "THE EXIT IS LOCKED");
+
+    if (global.story_state == StoryState.EXIT_UNLOCKED) {
+        draw_set_colour(make_colour_rgb(140, 255, 160));
+        draw_text(248, 75, "THE EXIT IS OPEN");
+    } else {
+        draw_set_colour(make_colour_rgb(255, 218, 104));
+        draw_text(248, 75, "THE EXIT IS LOCKED");
+    }
 }
+
 
 // Reset draw state.
 draw_set_colour(c_white);

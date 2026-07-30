@@ -37,11 +37,13 @@
   "resources":[
     {"id":{"name":"obj_casino_room","path":"objects/obj_casino_room/obj_casino_room.yy",},},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
+    {"id":{"name":"obj_slotmachine","path":"objects/obj_slotmachine/obj_slotmachine.yy",},},
     {"id":{"name":"obj_wall","path":"objects/obj_wall/obj_wall.yy",},},
     {"id":{"name":"casino","path":"rooms/casino/casino.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
     {"id":{"name":"MACROS","path":"scripts/MACROS/MACROS.yy",},},
     {"id":{"name":"player_anim_script","path":"scripts/player_anim_script/player_anim_script.yy",},},
+    {"id":{"name":"story_state","path":"scripts/story_state/story_state.yy",},},
     {"id":{"name":"spr_canvas","path":"sprites/spr_canvas/spr_canvas.yy",},},
     {"id":{"name":"spr_playceholder_idle","path":"sprites/spr_playceholder_idle/spr_playceholder_idle.yy",},},
     {"id":{"name":"spr_playceholder_walk","path":"sprites/spr_playceholder_walk/spr_playceholder_walk.yy",},},

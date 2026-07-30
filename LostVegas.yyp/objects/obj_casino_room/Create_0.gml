@@ -2,6 +2,8 @@
 /// PASTE ONLY INTO: obj_casino_room -> Create event tab
 /// DO NOT paste any part of this into obj_player.
 
+story_init();
+
 cam = view_camera[0];
 cam_w = camera_get_view_width(cam);
 cam_h = camera_get_view_height(cam);
