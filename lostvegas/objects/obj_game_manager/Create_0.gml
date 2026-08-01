@@ -1,20 +1,26 @@
 /// Persistent story and escape-state controller.
+
+
+
+
 if (instance_number(obj_game_manager) > 1) {
     instance_destroy();
     exit;
 }
 
 if (!variable_global_exists("story_initialized")) {
-    global.story_initialized = true;
+	global.story_initialized = true;
     global.money = 50;
     global.story_stage = 0;
     global.minigames_played = 0;
+	global.slots_played = false;
     global.minigame_session_counted = false;
     global.saw_locked_exit = false;
     global.found_planter_note = false;
     global.found_cashier_clue = false;
     global.found_service_badge = false;
     global.escape_open = false;
+	
 }
 
 // Inventory state is initialized separately so older running saves remain valid.
@@ -47,6 +53,8 @@ item_name = function(_item_id) {
         case "service_code": return "SERVICE B NOTE";
         case "staff_roster": return "TORN STAFF ROSTER";
         case "maintenance_badge": return "MAINTENANCE BADGE";
+		case "roger": return "PLUSH";
+		case "key" : return "KEY"
     }
     return "UNKNOWN ITEM";
 };
@@ -57,7 +65,9 @@ item_description = function(_item_id) {
         case "service_code": return "A carbon copy linking Service B to night code 0413.";
         case "staff_roster": return "Closing staff use a hidden corridor instead of the casino floor.";
         case "maintenance_badge": return "A green access badge for maintenance doors.";
-    }
+		case "roger": return "A plush bear dressed up as a scorpion called 'Roger the Scorp-Bear'. Apparently the mascot of Golden Ace."
+		case "key": return "A bronze key with a small scorpion engraved on it. Gotta find the door to where it goes."
+	}
     return "It has no obvious use.";
 };
 
@@ -161,6 +171,7 @@ inventory_use = function(_target) {
     return false;
 };
 
+
 start_dialogue(
     ["???", "MARA", "INTERCOM", "MARA"],
     [
@@ -170,5 +181,4 @@ start_dialogue(
         "Then why are the front doors chained?"
     ]
 );
-
 

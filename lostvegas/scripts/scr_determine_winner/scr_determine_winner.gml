@@ -47,4 +47,6 @@ function scr_determine_winner(){
 		global.money += global.card_bets;
 		global.card_bets = 0;
 	}
+	
+	global.total_wins += 1;
 }

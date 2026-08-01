@@ -53,7 +53,7 @@ if (!global.saw_locked_exit && _py < 72 && _px > 276 && _px < 364) {
 }
 
 // Mini-game progress is reported by the persistent mini-game manager on return.
-if (global.minigames_played > 0 && global.story_stage < 2) {
+if (global.slots_played == true && global.minigames_played > 0 && global.story_stage < 2) {
     global.story_stage = 2;
     inventory_add("payout_stub");
     start_dialogue(
@@ -111,3 +111,4 @@ if (keyboard_check_pressed(ord("E"))) {
 if (keyboard_check_pressed(vk_space) && puzzle_target != "" && !inventory_open) {
     inventory_fail("Open inventory with I, select an item, then press E to use it.");
 }
+
