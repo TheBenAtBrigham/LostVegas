@@ -22,6 +22,7 @@
     {"name":"Trigger Sprites","order":21,"path":"folders/Sprites/Trigger Sprites.yy",},
     {"name":"Tile Sets","order":2,"path":"folders/Tile Sets.yy",},
     {"name":"Timelines","order":8,"path":"folders/Timelines.yy",},
+    {"name":"Room Objects","order":18,"path":"folders/Objects/Room Objects.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"spr_roll","order":8,"path":"sprites/spr_roll/spr_roll.yy",},
@@ -60,6 +61,5 @@
     {"name":"rm_main_stairs","order":4,"path":"rooms/rm_main_stairs/rm_main_stairs.yy",},
     {"name":"spr_player_shadow","order":4,"path":"sprites/spr_player_shadow/spr_player_shadow.yy",},
     {"name":"obj_btn_hit","order":2,"path":"objects/obj_btn_hit/obj_btn_hit.yy",},
-    {"name":"obj_casino_room","order":1,"path":"objects/obj_casino_room/obj_casino_room.yy",},
   ],
 }

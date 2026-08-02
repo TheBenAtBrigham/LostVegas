@@ -239,7 +239,7 @@ for (var _side = 0; _side < 2; _side++) {
     }
 }
 
-// ---------- Roulette table ----------
+// ---------- Roulette \ ----------
 // Shadow.
 draw_set_alpha(0.35);
 draw_set_colour(c_black);

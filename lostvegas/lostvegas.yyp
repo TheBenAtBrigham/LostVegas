@@ -34,6 +34,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Trigger Sprites","folderPath":"folders/Sprites/Trigger Sprites.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Tile Sets","folderPath":"folders/Tile Sets.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Timelines","folderPath":"folders/Timelines.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Room Objects","folderPath":"folders/Objects/Room Objects.yy",},
   ],
   "IncludedFiles": [],
   "isEcma": false,
