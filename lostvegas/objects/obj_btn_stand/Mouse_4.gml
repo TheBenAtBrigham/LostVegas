@@ -3,6 +3,7 @@
 if (obj_black_jack.state == BLACK_JACK.PLAYER)
 {
 	obj_black_jack.state = BLACK_JACK.DEALER;
+	image_index = 1;
 }
 
 

@@ -9,10 +9,13 @@ enum BLACK_JACK {
 	RESET,
 }
 
-results = ""
+numeral_limit = 21
 
+result_text = ""
 
-state = BLACK_JACK.DEAL
+shuffle_timer = 0;
+
+state = BLACK_JACK.BETTING
 
 player_hand = []
 dealer_hand = []
@@ -21,9 +24,9 @@ deck = []
 for (var _i = 0; _i < 52; _i++)
 {
 	array_push(deck, _i);
-	
-	array_shuffle_ext(deck);
+	//array_shuffle_ext(deck);
 }
+array_shuffle_ext(deck);
 
 
 

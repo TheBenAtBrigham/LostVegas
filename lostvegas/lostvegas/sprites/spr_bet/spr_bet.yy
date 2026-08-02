@@ -49,8 +49,8 @@
   },
   "origin": 4,
   "parent": {
-    "name": "Sprites",
-    "path": "folders/Sprites.yy",
+    "name": "Button Sprites",
+    "path": "folders/Sprites/Button Sprites.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {

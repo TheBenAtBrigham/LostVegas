@@ -16,6 +16,14 @@ y_offset = 0;
 // Drop shadow sprite reference (for the pseudo-3D look)
 shadow_spr = spr_player_shadow;
 
+// set coordinates
+if (global.target_x != -1)
+{
+	x = global.target_x;
+	y = global.target_y
+	direction = global.target_direction;
+}
+
 /// Tests the player's small foot-level collision box against casino furniture.
 position_is_blocked = function(_x, _y) {
     if (!variable_global_exists("casino_solids")) return false;

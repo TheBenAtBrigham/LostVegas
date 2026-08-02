@@ -51,7 +51,8 @@ if (obj_slot_1.finished_rotating and obj_slot_2.finished_rotating and obj_slot_3
 		global.spins -= 1;
 		if (global.slots_bets > 0) global.slots_bets -= 1;
 	}
-	
+	//global.total_wins +=1;
+	global.slots_played = true;
 }
 
 
