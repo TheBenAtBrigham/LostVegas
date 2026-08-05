@@ -3,6 +3,59 @@ near_prompt = "";
 puzzle_target = "";
 if (inventory_message_timer > 0) inventory_message_timer -= 1;
 
+// Pause menu owns all gameplay input and is the only place that writes saves.
+if (keyboard_check_pressed(vk_escape) || keyboard_check_pressed(ord("P"))) {
+    pause_open = !pause_open;
+    inventory_open = false;
+}
+
+if (pause_open) {
+    var _pause_count = array_length(pause_options);
+    if (keyboard_check_pressed(vk_up)) pause_selected = (pause_selected - 1 + _pause_count) mod _pause_count;
+    if (keyboard_check_pressed(vk_down)) pause_selected = (pause_selected + 1) mod _pause_count;
+
+    if (keyboard_check_pressed(vk_enter) || keyboard_check_pressed(vk_space)) {
+        switch (pause_selected) {
+            case 0:
+                pause_open = false;
+                break;
+            case 1:
+                if (instance_exists(obj_player)) {
+                    save_game_state(obj_player.x, obj_player.y, obj_player.direction, room);
+                    inventory_message = "GAME SAVED";
+                    inventory_message_timer = 180;
+                    pause_open = false;
+                }
+                else {
+                    inventory_message = "Saving is unavailable inside a mini-game.";
+                    inventory_message_timer = 180;
+                }
+                break;
+            case 2:
+                if (load_game_state()) {
+                    sync_story_objective();
+                    dialogue_active = false;
+                    inventory_open = false;
+                    pause_open = false;
+                    inventory_message = "SAVE LOADED";
+                    inventory_message_timer = 180;
+                    room_goto(global.target_room);
+                }
+                else {
+                    inventory_message = "NO VALID SAVE FILE";
+                    inventory_message_timer = 180;
+                }
+                break;
+            case 3:
+                with (obj_minigame_manager) persistent = false;
+                persistent = false;
+                room_goto(rm_title);
+                break;
+        }
+    }
+    exit;
+}
+
 if (dialogue_active) {
     if (keyboard_check_pressed(vk_space) || keyboard_check_pressed(ord("E")) || keyboard_check_pressed(vk_enter)) {
         dialogue_index += 1;
