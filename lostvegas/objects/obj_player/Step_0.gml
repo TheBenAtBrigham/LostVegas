@@ -11,7 +11,9 @@ var _select_key = keyboard_check_pressed(vk_shift);
 
 // Story dialogue owns the input until the current line is dismissed.
 var _story_locked = instance_exists(obj_game_manager)
-    && (obj_game_manager.dialogue_active || obj_game_manager.inventory_open);
+    && (obj_game_manager.dialogue_active
+        || obj_game_manager.inventory_open
+        || obj_game_manager.pause_open);
 if (_story_locked) {
     _left_key = false;
     _right_key = false;

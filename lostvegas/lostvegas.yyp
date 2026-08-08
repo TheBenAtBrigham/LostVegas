@@ -44,6 +44,7 @@
     "IDEVersion": "2023.11.0.121",
   },
   "resources": [
+    {"id":{"name":"save_system","path":"scripts/save_system/save_system.yy",},},
     {"id":{"name":"spr_roll","path":"sprites/spr_roll/spr_roll.yy",},},
     {"id":{"name":"rm_slots","path":"rooms/rm_slots/rm_slots.yy",},},
     {"id":{"name":"spr_roulette","path":"sprites/spr_roulette/spr_roulette.yy",},},
