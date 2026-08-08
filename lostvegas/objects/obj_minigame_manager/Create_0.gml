@@ -6,7 +6,12 @@ global.slots_bets = 0;
 global.spins = 0;
 
 global.card_bets = 0;
-global.total_wins = 0
+global.roulette_bets = 0
+
+
+global.total_wins = 0;
+
+
 
 
 

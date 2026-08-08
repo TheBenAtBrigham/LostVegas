@@ -38,7 +38,7 @@ puzzle_target = "";
 objective_text = "Listen.";
 near_prompt = "";
 prompt_x = 0;
-prompt_y = 0;
+prompt_y = 60;
 
 start_dialogue = function(_speakers, _lines) {
     dialogue_speakers = _speakers;

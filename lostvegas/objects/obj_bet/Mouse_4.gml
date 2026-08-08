@@ -13,8 +13,14 @@ if (room == rm_slots)
 	global.money -= 1;
 	image_index = 1;
 }
+if (room == rm_roulette)
+{
+	global.roulette_bets += 1;
+	global.money -= 1;
+	image_index = 1;
+}
 
-
+audio_play_sound(snd_btn, 100, false);
 
 
 

@@ -2,7 +2,7 @@
 global.slots_bets += 1;
 global.spins += 1;
 if (global.money > 0) global.money -= 1;
-
+audio_play_sound(snd_btn, 100, false);
 
 
 

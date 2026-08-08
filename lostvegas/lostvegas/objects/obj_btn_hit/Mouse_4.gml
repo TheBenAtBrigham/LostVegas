@@ -7,11 +7,20 @@ if (obj_black_jack.state == BLACK_JACK.PLAYER)
 	
 	if (scr_get_card_scores(obj_black_jack.player_hand) > 21)
 	{
-		obj_black_jack.state = BLACK_JACK.RESOLVE
+		with (obj_black_jack){
+			scr_determine_winner();
+			obj_black_jack.state = BLACK_JACK.RESOLVE
+		}
 	}
+	image_index = 1
 }
 
-
+//reset
+else if (obj_black_jack.state == BLACK_JACK.RESOLVE)
+{
+	obj_black_jack.state = BLACK_JACK.RESET;
+	image_index = 1
+}
 
 
 

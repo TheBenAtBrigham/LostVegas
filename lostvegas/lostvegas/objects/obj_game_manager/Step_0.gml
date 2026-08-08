@@ -1,5 +1,7 @@
 /// Advance dialogue first; story interactions pause player movement.
 near_prompt = "";
+puzzle_target = "";
+if (inventory_message_timer > 0) inventory_message_timer -= 1;
 
 if (dialogue_active) {
     if (keyboard_check_pressed(vk_space) || keyboard_check_pressed(ord("E")) || keyboard_check_pressed(vk_enter)) {
@@ -13,6 +15,21 @@ if (dialogue_active) {
         }
     }
     exit;
+}
+
+// Inventory persists and can be inspected from either the casino or mini-game.
+if (keyboard_check_pressed(ord("I"))) inventory_open = !inventory_open;
+
+if (inventory_open) {
+    var _count = array_length(global.inventory);
+    if (_count > 0) {
+        if (keyboard_check_pressed(vk_left) || keyboard_check_pressed(vk_up)) {
+            global.inventory_selected = (global.inventory_selected - 1 + _count) mod _count;
+        }
+        if (keyboard_check_pressed(vk_right) || keyboard_check_pressed(vk_down)) {
+            global.inventory_selected = (global.inventory_selected + 1) mod _count;
+        }
+    }
 }
 
 if (room != casino || !instance_exists(obj_player)) exit;
@@ -36,8 +53,9 @@ if (!global.saw_locked_exit && _py < 72 && _px > 276 && _px < 364) {
 }
 
 // Mini-game progress is reported by the persistent mini-game manager on return.
-if (global.minigames_played > 0 && global.story_stage < 2) {
+if (global.slots_played == true && global.minigames_played > 0 && global.story_stage < 2) {
     global.story_stage = 2;
+    inventory_add("payout_stub");
     start_dialogue(
         ["MARA", "JIM"],
         [
@@ -46,12 +64,13 @@ if (global.minigames_played > 0 && global.story_stage < 2) {
             "The cashier desk may have kept the other half of this trail."
         ]
     );
-    objective_text = "Search the CASHIER desk for the payout trail.";
+    objective_text = "Take the payout stub to the CASHIER desk.";
 }
 
 // Optional exploration beat: a clue unrelated to money.
 if (!global.found_planter_note && point_distance(_px, _py, 582, 306) < 34) {
     global.found_planter_note = true;
+    inventory_add("staff_roster");
     start_dialogue(
         ["MARA"],
         [
@@ -61,57 +80,35 @@ if (!global.found_planter_note && point_distance(_px, _py, 582, 306) < 34) {
     );
 }
 
-// Required clue one: cashier paperwork.
+// Identify the current puzzle target before processing inventory use.
 if (global.story_stage == 2 && _px < 190 && _py < 112) {
-    near_prompt = "E / SPACE  Search the cashier desk";
+    puzzle_target = "cashier";
+    near_prompt = "I: Inventory   Select PAYOUT STUB   E: Use";
     prompt_x = 100;
     prompt_y = 102;
-    if (_interact) {
-        global.found_cashier_clue = true;
-        global.story_stage = 3;
-        objective_text = "Follow the staff route to the BAR service counter.";
-        start_dialogue(
-            ["MARA"],
-            [
-                "A carbon copy: 'VOID PAYOUT / send to Service B / night code 0413.'",
-                "Not a jackpot. A work order. The paper smells like citrus and bar polish.",
-                "Service B must be behind the bar."
-            ]
-        );
-    }
 }
 
-// Required clue two: the mundane service route contains the real escape tool.
 if (global.story_stage == 3 && _px > 430 && _py < 122) {
-    near_prompt = "E / SPACE  Enter code 0413";
+    puzzle_target = "bar";
+    near_prompt = "I: Inventory   Select SERVICE B NOTE   E: Use";
     prompt_x = 520;
     prompt_y = 112;
-    if (_interact) {
-        global.found_service_badge = true;
-        global.escape_open = true;
-        global.story_stage = 4;
-        objective_text = "Use the service badge at the north EXIT.";
-        start_dialogue(
-            ["MARA", "INTERCOM"],
-            [
-                "The service drawer clicks open. Inside: a green maintenance badge and a map marked 'STAIRS--NO CAMERAS.'",
-                "Please return casino property to the nearest attendant.",
-                "No. The games were the distraction. The staff route is the way out."
-            ]
-        );
-    }
 }
 
-// First escape-path payoff.
-if (global.escape_open && _py < 48 && _px > 282 && _px < 358) {
-    global.story_stage = 5;
-    objective_text = "Escape route opened: maintenance stairs.";
-    start_dialogue(
-        ["MARA"],
-        [
-            "The badge light turns green. Beyond the door, cold concrete stairs lead down--away from the music.",
-            "I haven't escaped the Golden Ace yet. But now I'm finally playing my own game."
-        ]
-    );
-    global.escape_open = false;
+if (global.story_stage == 4 && _py < 62 && _px > 276 && _px < 364) {
+    puzzle_target = "exit";
+    near_prompt = "I: Inventory   Select MAINTENANCE BADGE   E: Use";
+    prompt_x = 320;
+    prompt_y = 54;
 }
+
+// E uses the selected item on the nearby puzzle object. Inventory may stay open.
+if (keyboard_check_pressed(ord("E"))) {
+    inventory_use(puzzle_target);
+}
+
+// Space gives guidance but never silently uses an item.
+if (keyboard_check_pressed(vk_space) && puzzle_target != "" && !inventory_open) {
+    inventory_fail("Open inventory with I, select an item, then press E to use it.");
+}
+

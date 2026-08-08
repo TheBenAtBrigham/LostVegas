@@ -1,6 +1,8 @@
 /// World-space interaction highlights.
+
 if (room == casino && instance_exists(obj_player) && !dialogue_active) {
     draw_set_alpha(0.75);
+	
     draw_set_colour(make_colour_rgb(255, 220, 105));
     if (global.story_stage == 2) draw_circle(100, 96, 8 + sin(current_time / 180) * 2, true);
     if (global.story_stage == 3) draw_circle(520, 108, 8 + sin(current_time / 180) * 2, true);
