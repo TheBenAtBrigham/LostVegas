@@ -2,7 +2,7 @@
 rolling = false;
 y1-=y1 mod (sprite_height/img)
 finished_rotating = true;
-
+audio_play_sound(snd_slot, 100, false);
 
 
 

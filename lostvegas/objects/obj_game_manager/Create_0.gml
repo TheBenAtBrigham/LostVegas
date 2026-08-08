@@ -8,7 +8,7 @@ if (instance_number(obj_game_manager) > 1) {
     exit;
 }
 
-if (!variable_global_exists("story_initialized")) {
+if (!variable_global_exists("story_initialized") || !global.story_initialized) {
 	global.story_initialized = true;
     global.money = 50;
     global.story_stage = 0;
@@ -35,10 +35,13 @@ inventory_open = false;
 inventory_message = "";
 inventory_message_timer = 0;
 puzzle_target = "";
+pause_open = false;
+pause_selected = 0;
+pause_options = ["RESUME", "SAVE GAME", "LOAD GAME", "RETURN TO TITLE"];
 objective_text = "Listen.";
 near_prompt = "";
 prompt_x = 0;
-prompt_y = 0;
+prompt_y = 60;
 
 start_dialogue = function(_speakers, _lines) {
     dialogue_speakers = _speakers;
@@ -171,14 +174,38 @@ inventory_use = function(_target) {
     return false;
 };
 
+sync_story_objective = function() {
+    switch (global.story_stage) {
+        case 0: objective_text = "Listen."; break;
+        case 1:
+            objective_text = global.saw_locked_exit
+                ? "Play a slot game and watch what happens."
+                : "Inspect the locked EXIT at the north wall.";
+            break;
+        case 2: objective_text = "Take the payout stub to the CASHIER desk."; break;
+        case 3: objective_text = "Use the Service B note at the BAR counter."; break;
+        case 4: objective_text = "Use the maintenance badge at the north EXIT."; break;
+        default: objective_text = "Escape route opened: maintenance stairs."; break;
+    }
+};
 
-start_dialogue(
-    ["???", "MARA", "INTERCOM", "MARA"],
-    [
-        "Wake up. The carpet is moving... no, that's just the lights.",
-        "My wallet, my phone--gone. All I have is a fifty-dollar chip.",
-        "Welcome back to the Golden Ace. Remember: every guest leaves a winner.",
-        "Then why are the front doors chained?"
-    ]
-);
+if (variable_global_exists("loaded_from_save") && global.loaded_from_save) {
+    global.loaded_from_save = false;
+    sync_story_objective();
+    inventory_message = "SAVE LOADED";
+    inventory_message_timer = 180;
+}
+
+if (!variable_global_exists("slots_played")) global.slots_played = false;
+else {
+    start_dialogue(
+        ["???", "MARA", "INTERCOM", "MARA"],
+        [
+            "Wake up. The carpet is moving... no, that's just the lights.",
+            "My wallet, my phone--gone. All I have is a fifty-dollar chip.",
+            "Welcome back to the Golden Ace. Remember: every guest leaves a winner.",
+            "Then why are the front doors chained?"
+        ]
+    );
+}
 

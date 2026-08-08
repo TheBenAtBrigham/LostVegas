@@ -12,9 +12,9 @@ if (keyboard_check_pressed(vk_space) || keyboard_check_pressed(ord("E"))) {
 		
 	}
 	if (state == MINIGAME.ROULETTE) {
-		//room_goto(rm_roulette);
+		room_goto(rm_roulette);
 		// rm_cards is still an empty prototype, so keep the player in the casino.
-		if (instance_exists(obj_game_manager)) {
+		/*if (instance_exists(obj_game_manager)) {
 			obj_game_manager.start_dialogue(
 				["DEALER", "MARA"],
 				[
@@ -23,7 +23,7 @@ if (keyboard_check_pressed(vk_space) || keyboard_check_pressed(ord("E"))) {
 				]
 			);
 			obj_game_manager.objective_text = "Try a slot bank on either side of the casino.";
-		}
+		}*/
 	}
 	global.target_x = obj_player.x;
 	global.target_y = obj_player.y;

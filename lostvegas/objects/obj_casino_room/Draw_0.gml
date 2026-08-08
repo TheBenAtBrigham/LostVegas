@@ -239,7 +239,7 @@ for (var _side = 0; _side < 2; _side++) {
     }
 }
 
-// ---------- Roulette table ----------
+// ---------- Roulette \ ----------
 // Shadow.
 draw_set_alpha(0.35);
 draw_set_colour(c_black);
@@ -265,6 +265,16 @@ for (var _s = 0; _s < 12; _s++) {
     var _a1 = (_s / 12) * 360;
     var _a2 = ((_s + 1) / 12) * 360;
     draw_set_colour((_s mod 2 == 0) ? make_colour_rgb(170, 24, 34) : make_colour_rgb(22, 14, 20));
+    var _px1 = 320 + lengthdir_x(18, _a1);
+    var _py1 = 145 + lengthdir_y(18, _a1);
+    var _px2 = 320 + lengthdir_x(18, _a2);
+    var _py2 = 145 + lengthdir_y(18, _a2);
+    draw_triangle(320, 145, _px1, _py1, _px2, _py2, false);
+}
+for (var _s = 0; _s < 2; _s++) {
+    var _a1 = (_s / 12) * 360;
+    var _a2 = ((_s + 1) / 12) * 360;
+    draw_set_colour((_s mod 2 == 0) ? make_colour_rgb(170, 24, 34) : make_colour_rgb(144, 238, 144));
     var _px1 = 320 + lengthdir_x(18, _a1);
     var _py1 = 145 + lengthdir_y(18, _a1);
     var _px2 = 320 + lengthdir_x(18, _a2);

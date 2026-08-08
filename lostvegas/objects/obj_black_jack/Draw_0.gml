@@ -1,8 +1,8 @@
 /// @description Insert description here
 draw_set_color(c_white);
 
-draw_text(50, 50, "Player Score: " + string(scr_get_card_scores(player_hand))+ "/" + (string(numeral_limit)));
-draw_text(50, 100, "Dealer Score: " + string(scr_get_card_scores(dealer_hand))+ "/" + (string(numeral_limit)));
+draw_text(50, 50, "Player Score: " + string(scr_get_card_scores(player_hand, numeral_limit))+ "/" + (string(numeral_limit)));
+draw_text(50, 100, "Dealer Score: " + string(scr_get_card_scores(dealer_hand, numeral_limit))+ "/21" /*+ (string(numeral_limit))*/);
 draw_text(50, 150, "Game State " + string(state))
 draw_text(50, 200, "Cards Left in Deck: " + string(array_length(deck)));
 draw_text(50, 250, "Your Money: $" + string(string_format(global.money,1, 2)))

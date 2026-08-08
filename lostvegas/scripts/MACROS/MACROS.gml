@@ -40,4 +40,6 @@ enum MINIGAME
 	SLOTS,
 	CARDS,
 	ROULETTE,
+	EAGLE,
+	MAZE,
 }

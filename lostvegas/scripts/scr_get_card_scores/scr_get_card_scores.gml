@@ -1,6 +1,6 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
-function scr_get_card_scores(_target_hand){
+function scr_get_card_scores(_target_hand, _limit){
 	var _total_score = 0;
 	var _ace_count = 0;
 	
@@ -21,7 +21,7 @@ function scr_get_card_scores(_target_hand){
 		
 	}
 	
-	while (_total_score > 21 && _ace_count > 0)
+	while (_total_score > _limit && _ace_count > 0)
 	{
 		_total_score -=10;
 		_ace_count --;

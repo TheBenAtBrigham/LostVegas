@@ -32,11 +32,20 @@ draw_text(_cx, _cy - 40, "LOST VEGAS");
 draw_set_colour(make_colour_rgb(200, 180, 190));
 draw_text(_cx, _cy, "escape the Golden Ace");
 
-// Blinking "press any key" prompt.
-if (show_prompt) {
-    draw_set_colour(c_white);
-    draw_text(_cx, _cy + 60, "Press any key to start");
+for (var _i = 0; _i < array_length(menu_options); _i++) {
+    var _menu_y = _cy + 58 + (_i * 42);
+    var _enabled = (_i != 0) || save_available;
+    if (_i == menu_selected && show_prompt) {
+        draw_set_colour(make_colour_rgb(248, 214, 122));
+        draw_text(_cx - 110, _menu_y, "> ");
+    }
+    draw_set_colour(_enabled ? c_white : make_colour_rgb(100, 90, 105));
+    draw_text(_cx, _menu_y, menu_options[_i]);
 }
+
+draw_set_colour(make_colour_rgb(170, 150, 174));
+draw_text(_cx, _cy + 154, status_text);
+draw_text(_cx, _cy + 184, "UP / DOWN: select     ENTER / SPACE: confirm");
 
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);

@@ -5,10 +5,10 @@ if (obj_black_jack.state == BLACK_JACK.PLAYER)
 {
 	scr_deal_card(obj_black_jack.player_hand);
 	
-	if (scr_get_card_scores(obj_black_jack.player_hand) > 21)
+	if (scr_get_card_scores(obj_black_jack.player_hand, obj_black_jack.numeral_limit) > obj_black_jack.numeral_limit)
 	{
 		with (obj_black_jack){
-			scr_determine_winner();
+			scr_determine_winner(obj_black_jack.numeral_limit);
 			obj_black_jack.state = BLACK_JACK.RESOLVE
 		}
 	}

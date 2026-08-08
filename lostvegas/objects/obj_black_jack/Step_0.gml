@@ -1,4 +1,12 @@
 /// @description Insert description here
+if (obj_minigame_manager.rigged = true){
+	numeral_limit = 11;
+}
+else {
+	numeral_limit = 21;
+}
+
+
 switch (state) 
 {
 
@@ -16,7 +24,7 @@ switch (state)
 		scr_deal_card(player_hand);
 		scr_deal_card(dealer_hand);
 		
-		if (scr_get_card_scores(player_hand)==21){
+		if (scr_get_card_scores(player_hand, numeral_limit)==numeral_limit){
 			state = BLACK_JACK.DEALER
 		} else {
 			state = BLACK_JACK.PLAYER
@@ -26,9 +34,9 @@ switch (state)
 	
 	
 	case BLACK_JACK.PLAYER:
-		if (scr_get_card_scores(player_hand) > 21) 
+		if (scr_get_card_scores(player_hand, numeral_limit) > numeral_limit) 
 		{
-			scr_determine_winner();
+			scr_determine_winner(numeral_limit);
 			state = BLACK_JACK.RESOLVE;
 		}
 		break;

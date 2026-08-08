@@ -152,5 +152,44 @@ if (dialogue_active && array_length(dialogue_lines) > 0) {
     draw_text(_right - 245, _bottom - 26, "SPACE / E / ENTER  Continue");
 }
 
+if (pause_open) {
+    draw_set_alpha(0.72);
+    draw_set_colour(c_black);
+    draw_rectangle(0, 0, _gw, _gh, false);
+    draw_set_alpha(0.98);
+
+    var _pause_left = (_gw * 0.5) - 230;
+    var _pause_right = (_gw * 0.5) + 230;
+    var _pause_top = 108;
+    var _pause_bottom = _gh - 90;
+    draw_set_colour(make_colour_rgb(13, 9, 21));
+    draw_rectangle(_pause_left, _pause_top, _pause_right, _pause_bottom, false);
+    draw_set_alpha(1);
+    draw_set_colour(make_colour_rgb(220, 171, 64));
+    draw_rectangle(_pause_left, _pause_top, _pause_right, _pause_bottom, true);
+
+    draw_set_halign(fa_center);
+    draw_set_colour(make_colour_rgb(248, 214, 122));
+    draw_text(_gw * 0.5, _pause_top + 30, "GAME PAUSED");
+    draw_set_colour(make_colour_rgb(175, 155, 180));
+    draw_text(_gw * 0.5, _pause_top + 58, "UP / DOWN: select     ENTER / SPACE: confirm");
+
+    for (var _p = 0; _p < array_length(pause_options); _p++) {
+        var _option_y = _pause_top + 112 + (_p * 48);
+        if (_p == pause_selected) {
+            draw_set_colour(make_colour_rgb(82, 52, 76));
+            draw_rectangle(_pause_left + 42, _option_y - 10, _pause_right - 42, _option_y + 24, false);
+            draw_set_colour(make_colour_rgb(255, 218, 104));
+            draw_text(_gw * 0.5 - 128, _option_y, "> ");
+        }
+        else draw_set_colour(c_white);
+        draw_text(_gw * 0.5, _option_y, pause_options[_p]);
+    }
+
+    draw_set_colour(make_colour_rgb(175, 155, 180));
+    draw_text(_gw * 0.5, _pause_bottom - 34, "ESC / P: close pause menu");
+    draw_set_halign(fa_left);
+}
+
 draw_set_alpha(1);
 draw_set_colour(c_white);
