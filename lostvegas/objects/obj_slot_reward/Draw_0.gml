@@ -2,6 +2,7 @@
 // You can write your code in this editor
 if (sprite_index != -1){
 	draw_self();
+	draw_text(x-sprite_width/2 +25, y-sprite_width/2, "x" + string(mult))
 	if (extra_spin) draw_text(x-sprite_width/2, y-42, "Extra Spin" )
 	else draw_text(x-sprite_width/2, y-42, "You Win!" )
 }

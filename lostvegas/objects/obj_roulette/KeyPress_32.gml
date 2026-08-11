@@ -4,6 +4,7 @@ if (global.roulette_bets > 0 && !spinning)
 {
 	spinning = true;
 	
+	
 	var _target_num = irandom(11);
 	
 	var _target_index = 0;
@@ -13,9 +14,13 @@ if (global.roulette_bets > 0 && !spinning)
 		if (wheel_mapping[_i] == _target_num)
 		{
 			_target_index = _i;
+			if obj_minigame_manager.rigged _target_index =+ 1;
 			break;
 		}
 	}
+	
+	
+
 
 	var _current_wrap = image_angle mod 360;
 	if (_current_wrap < 0) _current_wrap += 360;
@@ -29,6 +34,8 @@ if (global.roulette_bets > 0 && !spinning)
 	
 	var _full_spins = 360 * irandom_range(4, 6);
 	target_angle = image_angle + _relative_dist + _full_spins;
+	winning_number = _target_index;
+	
 }
 
 

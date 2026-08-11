@@ -6,12 +6,14 @@ draw_clear(make_colour_rgb(14, 8, 20));
 
 var _gw = display_get_gui_width() > 0 ? room_width : room_width;
 var _cx = room_width / 2;
-var _cy = room_height / 2;
+var _cy = (room_height / 2) - 50;
+
+draw_sprite(spr_roger, 0, _cx+100, y+80);
 
 // Soft glow behind the title.
 draw_set_alpha(0.15);
 draw_set_colour(make_colour_rgb(255, 210, 90));
-draw_circle(_cx, _cy - 40, 160, false);
+draw_circle(_cx, _cy, 120, false);
 draw_set_alpha(1);
 
 // Title text, with the same layered glow/shadow/highlight trick used
@@ -51,3 +53,6 @@ draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 draw_set_colour(c_white);
 draw_set_alpha(1);
+
+
+

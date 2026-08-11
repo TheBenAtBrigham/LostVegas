@@ -1,6 +1,7 @@
 /// @description Insert description here
 // You can write your code in this editor
-if (!spinning)
+slice_message = "";
+if (!spinning && can_bet)
 {
 	var _mx = mouse_x;
 	var _my = mouse_y;	
@@ -8,11 +9,11 @@ if (!spinning)
 	var _cycle_bet = function(_current_val, _wallet)
 	{
 		audio_play_sound(snd_slot, 100, false);
-		var _next_val = 0;
+		var _next_val = _current_val;
 		var _loops = 0;
 		while (_loops < 6) {
 			_loops++
-			switch (_current_val)
+			switch (_next_val)
 			{
 				case 0: _next_val = 1; break;
 				case 1: _next_val = 5; break;
@@ -27,7 +28,7 @@ if (!spinning)
 			
 			var _cost = _next_val - _current_val;
 			
-			if (_wallet > _cost) return _next_val;
+			if (_wallet >= _cost) return _next_val;
 		}
 		return 0;
 	};
@@ -120,9 +121,10 @@ if (!spinning)
 			//global.roulette_bets += chip_value;
 		}
 	}
+
 	//row 6 ~ red / black
 	var _row_6_y = sqy1 + (5 * sqsz)
-	if (_my >= _row_6_y &&  _my <= _row_6_y + sqsz)
+	if ((_my >= _row_6_y &&  _my <= _row_6_y + sqsz) && !obj_minigame_manager.rigged)
 	{
 		var _mid_x = sqx1 + (1.5 * sqsz) 
 		//red
@@ -136,7 +138,6 @@ if (!spinning)
 				global.money -= (_new - _old);
 				global.roulette_bets += (_new - _old);
 				red_bet = _new;
-				audio_play_sound(snd_slot, 100, false);
 			}
 			exit;
 			//red_bet += chip_value;
@@ -154,7 +155,6 @@ if (!spinning)
 				global.money -= (_new - _old);
 				global.roulette_bets += (_new - _old);
 				black_bet = _new;
-				audio_play_sound(snd_slot, 100, false);
 			}
 			exit;
 			//black_bet += chip_value;

@@ -28,6 +28,22 @@ wheel_mapping[9] = 7
 wheel_mapping[10] = 6
 wheel_mapping[11] = 5
 
+color_map = array_create(12);
+color_map[0] = 0;
+color_map[1] = 1;
+color_map[2] = 2;
+color_map[3] = 1;
+color_map[4] = 2;
+color_map[5] = 1;
+color_map[6] = 2;
+color_map[7] = 1;
+color_map[8] = 2;
+color_map[9] = 1;
+color_map[10] = 2;
+color_map[11] = 1;
+
+winning_number = 0;
+
 //row 1 0G
 //row 2 1R, 2B, 3R,
 //row 3 4B, 5R, 6B,
@@ -42,7 +58,7 @@ row_5 = [10,11]
 
 //squares to bet on
 sqx1 = 80
-sqy1 = 32
+sqy1 = 52
 sqsz = 32
 sqx2 = sqx1 + sqsz
 sqy2 = sqy1 + sqsz
@@ -52,3 +68,4 @@ red_bet = 0;
 black_bet = 0;
 
 chip_value = 5;
+can_bet = true;

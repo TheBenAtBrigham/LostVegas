@@ -31,6 +31,20 @@ if (room == rm_cards) {
     draw_text(34, 70, "One completed visit is enough to advance the escape lead.");
 }
 
+if (room == rm_roulette) {
+    draw_set_alpha(0.92);
+    draw_set_colour(make_colour_rgb(13, 9, 21));
+    draw_rectangle(18, 18, min(_gw - 18, 760), 94, false);
+    draw_set_alpha(1);
+    draw_set_colour(make_colour_rgb(220, 171, 64));
+    draw_rectangle(18, 18, min(_gw - 18, 760), 94, true);
+    draw_text(34, 28, "MINI ROULETTE");
+    draw_set_colour(c_white);
+    draw_text(34, 50, "SPACE: Spin, MOUSE: Click on a square to bet how much you want, ENTER: Leave ");
+    draw_set_colour(make_colour_rgb(190, 174, 198));
+    draw_text(34, 70, "One completed visit is enough to advance the escape lead.");
+}
+
 // Objective ribbon.
 if (room == casino) {
     draw_set_alpha(0.88);

@@ -1,4 +1,11 @@
 {
   "FolderOrderSettings": [],
-  "ResourceOrderSettings": [],
+  "ResourceOrderSettings": [
+    {"name":"spr_hyaku","order":3,"path":"sprites/spr_hyaku/spr_hyaku.yy",},
+    {"name":"spr_yonjyuu","order":1,"path":"sprites/spr_yonjyuu/spr_yonjyuu.yy",},
+    {"name":"spr_sen","order":2,"path":"sprites/spr_sen/spr_sen.yy",},
+    {"name":"spr_nihyaku","order":4,"path":"sprites/spr_nihyaku/spr_nihyaku.yy",},
+    {"name":"spr_roger","order":5,"path":"sprites/spr_roger/spr_roger.yy",},
+    {"name":"obj_title","order":1,"path":"objects/obj_title/obj_title.yy",},
+  ],
 }
