@@ -62,9 +62,11 @@ switch (state)
 		
 		if (array_length(deck) < 20)
 		{
-			deck = []; 
-			for (var _i =0; _i < 52; _i++){
-				array_push(deck);
+			// Rebuild a standard 52-card deck. array_push requires both
+			// the destination array and the card value being appended.
+			deck = [];
+			for (var _i = 0; _i < 52; _i++) {
+				array_push(deck, _i);
 			}
 			array_shuffle_ext(deck);
 			
