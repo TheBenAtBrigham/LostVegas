@@ -20,7 +20,7 @@ if (instance_exists(obj_player)) {
 }
 
 
-if (global.story_stage >= 5){
+if (global.story_stage >= 5 && room == casino){
 	global.casino_solids = [
     // --- Outer walls ---
 	//[0,   0,   640, 24], 
@@ -65,6 +65,24 @@ if (global.story_stage >= 5){
     [58-12,  306, 58+12,  324],
     [582-12, 306, 582+12, 324]
 ];
+} else if (room != casino) {
+	global.casino_solids = [
+    // --- Outer walls ---
+	//[0,   0,   640, 24], 
+    [0,   0,   292, 24],   // top wall left of exit
+	[348,   0, 640, 24],   // right of exit
+    [0,   24,  20,  360],  // left wall
+    [620, 24,  640, 360],  // right wall
+    [20,  340, 292, 360],  // bottom wall, left of entrance
+    [348, 340, 620, 360],  // bottom wall, right of entrance
+
+   
+
+    // --- Planters ---
+    [58-12,  306, 58+12,  324],
+    [582-12, 306, 582+12, 324]
+];
+
 }
 
 

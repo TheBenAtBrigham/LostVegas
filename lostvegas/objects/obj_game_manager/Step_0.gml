@@ -120,6 +120,50 @@ if (global.slots_played == true && global.minigames_played > 0 && global.story_s
     objective_text = "Take the payout stub to the CASHIER desk.";
 }
 
+if (!global.rigging_noticed && obj_minigame_manager.rigged == true && room == casino)
+{
+	global.rigging_noticed = true;
+	start_dialogue(
+        ["MARA"],
+        [
+            "Wait... What's going on? Why was that game harder now?",
+            "Are the other games now like this?"
+        ]
+    );
+	
+}
+
+if (global.money <= 0 && room == casino)
+{
+	if (global.slots_bets == 0 && global.spins == 0 && global.roulette_bets == 0 && global.card_bets == 0)
+	{
+		start_dialogue(
+	        ["MARA", "MARA", "MARA", "???", "MARA", "???", "???"],
+	        [
+	            "Oh, No...",
+	            "I lost all my chips!",
+				"How will I get out now?!",
+				"Tee-hee-hee!!",
+				"Who's there?",
+				"It's now game over for you!",
+				"Though wanna play some more? Here's a chip!"
+	        ]
+	    );
+	global.money = 1;
+	//room_goto(rm_title);
+	}
+	else {
+		start_dialogue(
+	        ["MARA"],
+	        [
+	            "I don't have chips...",
+				"I'll have to look at the slots or card deck."
+	        ]
+	    );
+	}
+	
+}
+
 // Optional exploration beat: a clue unrelated to money.
 if (!global.found_planter_note && point_distance(_px, _py, 582, 306) < 34) {
     global.found_planter_note = true;
@@ -132,6 +176,8 @@ if (!global.found_planter_note && point_distance(_px, _py, 582, 306) < 34) {
         ]
     );
 }
+
+
 
 // Identify the current puzzle target before processing inventory use.
 if (global.story_stage == 2 && _px < 190 && _py < 112) {
@@ -146,6 +192,24 @@ if (global.story_stage == 3 && _px > 430 && _py < 122) {
     near_prompt = "I: Inventory   Select SERVICE B NOTE   E: Use";
     prompt_x = 520;
     prompt_y = 112;
+}
+
+if (!global.game_won && room == rm_outside){
+	//global.game_won = true;
+	start_dialogue(
+        ["MARA"],
+        [
+            "There's my phone and money!",
+			"Better get out of here...!",
+			"I made it out!",	
+			
+        ]
+    );
+}
+
+if (global.money <= 0)
+{
+	global.money = 0;
 }
 
 if (global.story_stage == 4 && _py < 62 && _px > 276 && _px < 364) {
@@ -165,3 +229,10 @@ if (keyboard_check_pressed(vk_space) && puzzle_target != "" && !inventory_open) 
     inventory_fail("Open inventory with I, select an item, then press E to use it.");
 }
 
+
+
+
+
+
+//"Game programmed by Henry Ugochukwu, Asa Benson, Freedom Mukanza and Emeribe Stanley Chibuike Ameiz. "
+//"Game based on an idea by Asa Benson and Roger the Scorp-Bear is a character created by Asa Benson"

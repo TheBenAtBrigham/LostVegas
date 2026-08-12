@@ -1,11 +1,21 @@
 {
-  "FolderOrderSettings": [],
+  "FolderOrderSettings": [
+    {"name":"Minigame Rooms","order":1,"path":"folders/Rooms/Minigame Rooms.yy",},
+  ],
   "ResourceOrderSettings": [
+    {"name":"rm_slots","order":1,"path":"rooms/rm_slots/rm_slots.yy",},
+    {"name":"spr_sand","order":6,"path":"sprites/spr_sand/spr_sand.yy",},
     {"name":"spr_hyaku","order":3,"path":"sprites/spr_hyaku/spr_hyaku.yy",},
+    {"name":"rm_outside","order":2,"path":"rooms/rm_outside/rm_outside.yy",},
     {"name":"spr_yonjyuu","order":1,"path":"sprites/spr_yonjyuu/spr_yonjyuu.yy",},
+    {"name":"obj_outside","order":2,"path":"objects/obj_outside/obj_outside.yy",},
     {"name":"spr_sen","order":2,"path":"sprites/spr_sen/spr_sen.yy",},
+    {"name":"obj_horizon","order":1,"path":"objects/obj_horizon/obj_horizon.yy",},
     {"name":"spr_nihyaku","order":4,"path":"sprites/spr_nihyaku/spr_nihyaku.yy",},
+    {"name":"spr_horizon","order":1,"path":"sprites/spr_horizon/spr_horizon.yy",},
     {"name":"spr_roger","order":5,"path":"sprites/spr_roger/spr_roger.yy",},
+    {"name":"rm_south","order":3,"path":"rooms/rm_south/rm_south.yy",},
     {"name":"obj_title","order":1,"path":"objects/obj_title/obj_title.yy",},
+    {"name":"rm_roulette","order":2,"path":"rooms/rm_roulette/rm_roulette.yy",},
   ],
 }

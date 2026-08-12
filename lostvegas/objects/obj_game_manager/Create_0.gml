@@ -20,7 +20,8 @@ if (!variable_global_exists("story_initialized") || !global.story_initialized) {
     global.found_cashier_clue = false;
     global.found_service_badge = false;
     global.escape_open = false;
-	
+	global.rigging_noticed = false;
+	global.game_won = false
 }
 
 // Inventory state is initialized separately so older running saves remain valid.
@@ -209,3 +210,15 @@ else {
     );
 }
 
+if (!global.game_won && room == rm_outside){
+	//global.game_won = true;
+	start_dialogue(
+        ["MARA"],
+        [
+            "There's my phone and money!",
+			"Better get out of here...!",
+			"I made it out!",	
+			
+        ]
+    );
+}

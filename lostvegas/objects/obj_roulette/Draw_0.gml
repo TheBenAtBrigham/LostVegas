@@ -57,7 +57,7 @@ for (var _row = 0; _row < 3; _row++)
 		{
 			
 			var _frame = _get_chip_frame(number_bets[_num]);
-			draw_text(_x1 + (sqsz / 2), _y1 + (sqsz / 2), "$" + string(number_bets[0]))
+			//draw_text(_x1 + (sqsz / 2), _y1 + (sqsz / 2), "$" + string(number_bets[0]))
 			draw_sprite(spr_chips, _frame, _x1 + (sqsz / 2), _y1 + (sqsz / 2));
 		}
 	}

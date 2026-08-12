@@ -1,6 +1,7 @@
 /// Draw the first casino room — polished pass.
 /// Collision rectangles in Create_0 are unchanged; only the visuals were refined.
-
+if (room == casino)
+{
 // ---------- Palette ----------
 var _c_floor_dark   = make_colour_rgb(38, 24, 44);
 var _c_floor        = make_colour_rgb(61, 42, 65);
@@ -418,3 +419,4 @@ if (instance_exists(obj_player) && obj_player.y < 62) {
 // Reset draw state.
 draw_set_colour(c_white);
 draw_set_alpha(1);
+}
