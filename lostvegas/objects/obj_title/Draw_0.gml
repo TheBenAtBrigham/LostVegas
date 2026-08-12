@@ -1,4 +1,4 @@
-/// FILE: obj_title / Draw event
+/// obj_title: Draw
 /// Matches the casino room's noir/gold colour palette so the title
 /// screen doesn't feel visually disconnected from the game itself.
 

@@ -1,4 +1,5 @@
-/// FILE: obj_title / Create event
+/// obj_title: Create
+/// Detects save availability and prepares the title-menu selection.
 
 blink_timer = 0;
 show_prompt = true;

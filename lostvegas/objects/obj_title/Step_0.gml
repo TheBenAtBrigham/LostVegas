@@ -1,4 +1,5 @@
-/// FILE: obj_title / Step event
+/// obj_title: Step
+/// Handles title-menu navigation and starts either a loaded or fresh game.
 
 blink_timer++;
 if (blink_timer >= 30) {

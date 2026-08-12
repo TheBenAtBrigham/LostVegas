@@ -1,33 +1,36 @@
-/// Persistent story and escape-state controller.
+/// obj_game_manager: Create
+/// Persistent story, dialogue, inventory, pause-menu, and puzzle controller.
 
-
-
-
+// Keep exactly one persistent manager alive across room changes.
 if (instance_number(obj_game_manager) > 1) {
     instance_destroy();
     exit;
 }
 
 if (!variable_global_exists("story_initialized") || !global.story_initialized) {
-	global.story_initialized = true;
+    global.story_initialized = true;
     global.money = 50;
     global.story_stage = 0;
     global.minigames_played = 0;
-	global.slots_played = false;
+    global.slots_played = false;
     global.minigame_session_counted = false;
     global.saw_locked_exit = false;
     global.found_planter_note = false;
     global.found_cashier_clue = false;
     global.found_service_badge = false;
     global.escape_open = false;
-	global.rigging_noticed = false;
-	global.game_won = false
+    global.rigging_noticed = false;
+    global.game_won = false;
 }
 
-// Inventory state is initialized separately so older running saves remain valid.
+// Later-added fields are initialized independently for old-save compatibility.
+if (!variable_global_exists("slots_played")) global.slots_played = false;
+if (!variable_global_exists("rigging_noticed")) global.rigging_noticed = false;
+if (!variable_global_exists("game_won")) global.game_won = false;
 if (!variable_global_exists("inventory")) global.inventory = [];
 if (!variable_global_exists("inventory_selected")) global.inventory_selected = 0;
 
+// Transient UI state is rebuilt whenever this manager is created.
 dialogue_lines = [];
 dialogue_speakers = [];
 dialogue_index = 0;
@@ -44,6 +47,7 @@ near_prompt = "";
 prompt_x = 0;
 prompt_y = 60;
 
+// Dialogue helpers ------------------------------------------------------------
 start_dialogue = function(_speakers, _lines) {
     dialogue_speakers = _speakers;
     dialogue_lines = _lines;
@@ -51,14 +55,15 @@ start_dialogue = function(_speakers, _lines) {
     dialogue_active = true;
 };
 
+// Inventory helpers -----------------------------------------------------------
 item_name = function(_item_id) {
     switch (_item_id) {
         case "payout_stub": return "VOID PAYOUT STUB";
         case "service_code": return "SERVICE B NOTE";
         case "staff_roster": return "TORN STAFF ROSTER";
         case "maintenance_badge": return "MAINTENANCE BADGE";
-		case "roger": return "PLUSH";
-		case "key" : return "KEY"
+        case "roger": return "PLUSH";
+        case "key": return "KEY";
     }
     return "UNKNOWN ITEM";
 };
@@ -69,9 +74,9 @@ item_description = function(_item_id) {
         case "service_code": return "A carbon copy linking Service B to night code 0413.";
         case "staff_roster": return "Closing staff use a hidden corridor instead of the casino floor.";
         case "maintenance_badge": return "A green access badge for maintenance doors.";
-		case "roger": return "A plush bear dressed up as a scorpion called 'Roger the Scorp-Bear'. Apparently the mascot of Golden Ace."
-		case "key": return "A bronze key with a small scorpion engraved on it. Gotta find the door to where it goes."
-	}
+        case "roger": return "A plush bear dressed as a scorpion: Roger the Scorp-Bear, Golden Ace's mascot.";
+        case "key": return "A bronze key engraved with a small scorpion. It must open a door nearby.";
+    }
     return "It has no obvious use.";
 };
 
@@ -175,6 +180,7 @@ inventory_use = function(_target) {
     return false;
 };
 
+// Rebuild derived UI text after loading a save.
 sync_story_objective = function() {
     switch (global.story_stage) {
         case 0: objective_text = "Listen."; break;
@@ -190,14 +196,13 @@ sync_story_objective = function() {
     }
 };
 
+// Loaded games skip the intro; new games start with the opening dialogue.
 if (variable_global_exists("loaded_from_save") && global.loaded_from_save) {
     global.loaded_from_save = false;
     sync_story_objective();
     inventory_message = "SAVE LOADED";
     inventory_message_timer = 180;
 }
-
-if (!variable_global_exists("slots_played")) global.slots_played = false;
 else {
     start_dialogue(
         ["???", "MARA", "INTERCOM", "MARA"],
@@ -206,19 +211,6 @@ else {
             "My wallet, my phone--gone. All I have is a fifty-dollar chip.",
             "Welcome back to the Golden Ace. Remember: every guest leaves a winner.",
             "Then why are the front doors chained?"
-        ]
-    );
-}
-
-if (!global.game_won && room == rm_outside){
-	//global.game_won = true;
-	start_dialogue(
-        ["MARA"],
-        [
-            "There's my phone and money!",
-			"Better get out of here...!",
-			"I made it out!",	
-			
         ]
     );
 }

@@ -1,9 +1,12 @@
-/// Advance dialogue first; story interactions pause player movement.
+/// obj_game_manager: Step
+/// Input priority: pause -> dialogue -> inventory -> room story triggers.
+
+// Context-sensitive prompts are recalculated every frame.
 near_prompt = "";
 puzzle_target = "";
 if (inventory_message_timer > 0) inventory_message_timer -= 1;
 
-// Pause menu owns all gameplay input and is the only place that writes saves.
+// Pause menu: owns gameplay input and is the only UI that writes save data.
 if (keyboard_check_pressed(vk_escape) || keyboard_check_pressed(ord("P"))) {
     pause_open = !pause_open;
     inventory_open = false;
@@ -70,7 +73,7 @@ if (dialogue_active) {
     exit;
 }
 
-// Inventory persists and can be inspected from either the casino or mini-game.
+// Inventory navigation: persists across the casino and mini-game rooms.
 if (keyboard_check_pressed(ord("I"))) inventory_open = !inventory_open;
 
 if (inventory_open) {
@@ -85,11 +88,20 @@ if (inventory_open) {
     }
 }
 
+// Handle non-casino story events before entering the casino-only section.
+if (room == rm_outside && !global.game_won) {
+    global.game_won = true;
+    start_dialogue(
+        ["MARA"],
+        ["There's my phone and money!", "Better get out of here...!", "I made it out!"]
+    );
+    exit;
+}
+
 if (room != casino || !instance_exists(obj_player)) exit;
 
 var _px = obj_player.x;
 var _py = obj_player.y;
-var _interact = keyboard_check_pressed(vk_space) || keyboard_check_pressed(ord("E"));
 
 // Exploration trigger: the obvious way out establishes the central problem.
 if (!global.saw_locked_exit && _py < 72 && _px > 276 && _px < 364) {
@@ -106,7 +118,7 @@ if (!global.saw_locked_exit && _py < 72 && _px > 276 && _px < 364) {
 }
 
 // Mini-game progress is reported by the persistent mini-game manager on return.
-if (global.slots_played == true && global.minigames_played > 0 && global.story_stage < 2) {
+if (global.slots_played && global.minigames_played > 0 && global.story_stage < 2) {
     global.story_stage = 2;
     inventory_add("payout_stub");
     start_dialogue(
@@ -120,8 +132,9 @@ if (global.slots_played == true && global.minigames_played > 0 && global.story_s
     objective_text = "Take the payout stub to the CASHIER desk.";
 }
 
-if (!global.rigging_noticed && obj_minigame_manager.rigged == true && room == casino)
-{
+if (!global.rigging_noticed
+    && instance_exists(obj_minigame_manager)
+    && obj_minigame_manager.rigged) {
 	global.rigging_noticed = true;
 	start_dialogue(
         ["MARA"],
@@ -194,23 +207,8 @@ if (global.story_stage == 3 && _px > 430 && _py < 122) {
     prompt_y = 112;
 }
 
-if (!global.game_won && room == rm_outside){
-	//global.game_won = true;
-	start_dialogue(
-        ["MARA"],
-        [
-            "There's my phone and money!",
-			"Better get out of here...!",
-			"I made it out!",	
-			
-        ]
-    );
-}
-
-if (global.money <= 0)
-{
-	global.money = 0;
-}
+// Money is never allowed to remain negative after casino interactions.
+global.money = max(0, global.money);
 
 if (global.story_stage == 4 && _py < 62 && _px > 276 && _px < 364) {
     puzzle_target = "exit";
@@ -220,7 +218,7 @@ if (global.story_stage == 4 && _py < 62 && _px > 276 && _px < 364) {
 }
 
 // E uses the selected item on the nearby puzzle object. Inventory may stay open.
-if (keyboard_check_pressed(ord("E"))) {
+if (keyboard_check_pressed(ord("E")) && puzzle_target != "") {
     inventory_use(puzzle_target);
 }
 

@@ -1,4 +1,5 @@
-/// Initialize cross-room coordinates once without overwriting loaded data.
+/// obj_init_machine: Create
+/// Initializes cross-room coordinates once without overwriting loaded data.
 if (instance_number(obj_init_machine) > 1) {
     instance_destroy();
     exit;

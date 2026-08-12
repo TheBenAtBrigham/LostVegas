@@ -1,13 +1,18 @@
-/// File-backed save/load helpers. Relative paths resolve inside GameMaker's save area.
+/// save_system
+/// Versioned persistence for player, story, and inventory state.
+/// Relative paths resolve inside GameMaker's platform-safe writable save area.
+
+#macro SAVE_FILE "lostvegas_save.ini"
+#macro SAVE_VERSION 1
 
 function save_file_exists() {
-    return file_exists("lostvegas_save.ini");
+    return file_exists(SAVE_FILE);
 }
 
 function save_game_state(_player_x, _player_y, _player_direction, _room_id) {
-    ini_open("lostvegas_save.ini");
+    ini_open(SAVE_FILE);
 
-    ini_write_real("meta", "version", 1);
+    ini_write_real("meta", "version", SAVE_VERSION);
     ini_write_string("meta", "saved_at", date_datetime_string(date_current_datetime()));
 
     ini_write_real("player", "x", _player_x);
@@ -24,6 +29,8 @@ function save_game_state(_player_x, _player_y, _player_direction, _room_id) {
     ini_write_real("story", "found_cashier_clue", global.found_cashier_clue);
     ini_write_real("story", "found_service_badge", global.found_service_badge);
     ini_write_real("story", "escape_open", global.escape_open);
+    ini_write_real("story", "rigging_noticed", global.rigging_noticed);
+    ini_write_real("story", "game_won", global.game_won);
 
     var _inventory_count = array_length(global.inventory);
     ini_write_real("inventory", "count", _inventory_count);
@@ -39,9 +46,9 @@ function save_game_state(_player_x, _player_y, _player_direction, _room_id) {
 function load_game_state() {
     if (!save_file_exists()) return false;
 
-    ini_open("lostvegas_save.ini");
+    ini_open(SAVE_FILE);
     var _version = ini_read_real("meta", "version", 0);
-    if (_version != 1) {
+    if (_version != SAVE_VERSION) {
         ini_close();
         return false;
     }
@@ -67,7 +74,10 @@ function load_game_state() {
     global.found_cashier_clue = ini_read_real("story", "found_cashier_clue", false);
     global.found_service_badge = ini_read_real("story", "found_service_badge", false);
     global.escape_open = ini_read_real("story", "escape_open", false);
+    global.rigging_noticed = ini_read_real("story", "rigging_noticed", false);
+    global.game_won = ini_read_real("story", "game_won", false);
 
+    // Reconstruct the variable-length inventory from stable item identifiers.
     global.inventory = [];
     var _inventory_count = max(0, floor(ini_read_real("inventory", "count", 0)));
     for (var _i = 0; _i < _inventory_count; _i++) {
@@ -85,6 +95,7 @@ function load_game_state() {
 }
 
 function begin_new_game() {
+    // The game manager will rebuild all defaults when the casino room starts.
     global.story_initialized = false;
     global.loaded_from_save = false;
     global.inventory = [];
